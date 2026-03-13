@@ -32,6 +32,12 @@
         opacity: 1;
       }
     }
+    
+    :global(.cls-1) {
+      fill: #fff;
+      stroke: #fff;
+      stroke-width: 2px;
+    }
   }
 
   .itemHoverable:hover {

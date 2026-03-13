@@ -33,6 +33,7 @@
     line-height: 20px;
     margin-left: 2px;
     vertical-align: top;
+    margin-left: 5px;
   }
 
   .cards {
@@ -43,6 +44,8 @@
     overflow-x: hidden;
     overflow-y: auto;
     width: 290px;
+    
+    padding-top: 6px;
 
     &:hover {
       width: 272px;
@@ -81,6 +84,9 @@
         opacity: 1;
       }
     }
+    
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1;
   }
 
   .headerEditable {
@@ -136,13 +142,26 @@
     margin-right: 8px;
     width: 272px;
   }
+  
+  .innerWrapper + .innerWrapper {
+    .addCardButton {
+      display: none;
+    }
+  }
 
   .outerWrapper {
-    background: #dfe3e6;
-    border-radius: 3px;
+    /* background: #dfe3e6; */
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     max-height: calc(100vh - 198px);
     overflow: hidden;
+    
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    
+    &.gradient {
+      background-image: linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.75)) !important;
+    }
   }
 }

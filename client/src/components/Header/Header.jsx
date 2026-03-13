@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,9 @@ import Paths from '../../constants/Paths';
 import NotificationsStep from './NotificationsStep';
 import User from '../User';
 import UserStep from '../UserStep';
+
+import { ReactComponent as IconMail } from '../../assets/images/icon-mail.svg';
+import { ReactComponent as IconUsers } from '../../assets/images/icon-patients.svg';
 
 import styles from './Header.module.scss';
 
@@ -36,6 +39,8 @@ const Header = React.memo(
       }
     }, [canEditProject, onProjectSettingsClick]);
 
+    const [projectName, setProjecName] = useState();
+
     const NotificationsPopup = usePopup(NotificationsStep, POPUP_PROPS);
     const UserPopup = usePopup(UserStep, POPUP_PROPS);
 
@@ -43,7 +48,15 @@ const Header = React.memo(
       <div className={styles.wrapper}>
         {!project && (
           <Link to={Paths.ROOT} className={classNames(styles.logo, styles.title)}>
-            Planka
+            {!projectName && (
+              <img
+                className="ui"
+                src={`/clients/${'medlife.dozainer.org' || window.location.hostname}.svg`}
+                alt={project ? project.name : ''}
+                onError={() => setProjecName(project.name)}
+                style={{ height: '2em', verticalAlign: 'middle' }}
+              />
+            )}
           </Link>
         )}
         <Menu inverted size="large" className={styles.menu}>
@@ -57,7 +70,15 @@ const Header = React.memo(
                 <Icon fitted name="arrow left" />
               </Menu.Item>
               <Menu.Item className={classNames(styles.item, styles.title)}>
-                {project.name}
+                {!projectName && (
+                  <img
+                    className="ui"
+                    src={`/clients/${'medlife.dozainer.org' || window.location.hostname}.svg`}
+                    alt={project.name}
+                    onError={() => setProjecName(project.name)}
+                    style={{ height: '2em', marginLeft: '-1em' }}
+                  />
+                )}
                 {canEditProject && (
                   <Button
                     className={classNames(styles.editButton, styles.target)}
@@ -75,12 +96,14 @@ const Header = React.memo(
                 className={classNames(styles.item, styles.itemHoverable)}
                 onClick={onUsersClick}
               >
-                <Icon fitted name="users" />
+                {/* <Icon fitted name="users" /> */}
+                <IconUsers style={{ width: 24 }} />
               </Menu.Item>
             )}
             <NotificationsPopup items={notifications} onDelete={onNotificationDelete}>
               <Menu.Item className={classNames(styles.item, styles.itemHoverable)}>
-                <Icon fitted name="bell" />
+                {/* <Icon fitted name="bell" /> */}
+                <IconMail style={{ width: 24 }} />
                 {notifications.length > 0 && (
                   <span className={styles.notification}>{notifications.length}</span>
                 )}

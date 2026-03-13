@@ -15,7 +15,7 @@ export default {
 
   translation: {
     common: {
-      aboutPlanka: 'Despre Planka',
+      aboutPlanka: 'Despre',
       account: 'Cont',
       actions: 'Acțiuni',
       addAttachment_title: 'Adauga atasament',
@@ -135,6 +135,7 @@ export default {
       projectNotFound_title: 'Proiectul nu a fost găsit',
       removeManager_title: 'Eliminați Manager',
       removeMember_title: 'Eliminați membru',
+      searchCards: 'Căutați...',
       searchLabels: 'Căutați etichete...',
       searchMembers: 'Căutați membri...',
       searchUsers: 'Căutați utilizatori...',
@@ -169,10 +170,10 @@ export default {
     },
 
     action: {
-      addAnotherCard: 'Adăugați un alt card',
+      addAnotherCard: 'Adăugați client',
       addAnotherList: 'Adăugați o altă listă',
       addAnotherTask: 'Adăugați o altă sarcină',
-      addCard: 'Adăugați card',
+      addCard: 'Adăugați client',
       addCard_title: 'Adăugați card',
       addComment: 'Adauga comentariu',
       addList: 'Adăugați listă',
@@ -238,6 +239,14 @@ export default {
       unsubscribe: 'Dezabonați-vă',
       uploadNewAvatar: 'Încărcați un avatar nou',
       uploadNewImage: 'Încărcați o nouă imagine',
+    },
+
+    agenda: 'Agendă',
+
+    status: {
+      planned: 'Planificat',
+      in_progress: 'În lucru',
+      done: 'Finalizat',
     },
   },
 };

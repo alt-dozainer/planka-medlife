@@ -8,12 +8,15 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { Button, Icon } from 'semantic-ui-react';
 import { usePopup } from '../../lib/popup';
 
+import StatusColors, { getTranslationKey } from '../../constants/StatusColors';
+
 import DroppableTypes from '../../constants/DroppableTypes';
 import CardContainer from '../../containers/CardContainer';
 import CardAdd from './CardAdd';
 import NameEdit from './NameEdit';
 import ActionsStep from './ActionsStep';
-import { ReactComponent as PlusMathIcon } from '../../assets/images/plus-math-icon.svg';
+// import { ReactComponent as PlusMathIcon } from '../../assets/images/plus-math-icon.svg';
+import { ReactComponent as IconUserAdd } from '../../assets/images/icon-user-new.svg';
 
 import styles from './List.module.scss';
 import globalStyles from '../../styles.module.scss';
@@ -32,11 +35,13 @@ const List = React.memo(
     onSort,
     onCardCreate,
   }) => {
-    const [t] = useTranslation();
+    const { t, i18n } = useTranslation();
     const [isAddCardOpened, setIsAddCardOpened] = useState(false);
 
     const nameEdit = useRef(null);
     const cardsWrapper = useRef(null);
+
+    const statuses = i18n.options.resources[i18n.language].translation.status;
 
     const handleHeaderClick = useCallback(() => {
       if (isPersisted && canEdit) {
@@ -122,7 +127,14 @@ const List = React.memo(
             ref={innerRef}
             className={styles.innerWrapper}
           >
-            <div className={styles.outerWrapper}>
+            <div
+              className={`
+                ${styles.outerWrapper}
+                ${globalStyles[StatusColors[getTranslationKey(statuses, name)]]}
+                ${globalStyles[`background${upperFirst(camelCase(color))}`]}
+                ${styles.gradient}
+              `}
+            >
               {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,
                                            jsx-a11y/no-static-element-interactions */}
               <div
@@ -141,7 +153,7 @@ const List = React.memo(
                         )}
                       />
                     )}
-                    {name}
+                    {statuses[name] ? t(`status.${name}`) : name}
                   </div>
                 </NameEdit>
                 {isPersisted && canEdit && (
@@ -169,7 +181,8 @@ const List = React.memo(
                   className={styles.addCardButton}
                   onClick={handleAddCardClick}
                 >
-                  <PlusMathIcon className={styles.addCardButtonIcon} />
+                  {/* <PlusMathIcon className={styles.addCardButtonIcon} /> */}
+                  <IconUserAdd style={{ width: 24 }} />
                   <span className={styles.addCardButtonText}>
                     {cardIds.length > 0 ? t('action.addAnotherCard') : t('action.addCard')}
                   </span>

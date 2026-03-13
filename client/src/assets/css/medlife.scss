@@ -1,0 +1,14 @@
+@font-face {
+    font-family: "Circe W02 Regular";
+    src: local("CirceW02-Regular"),url(../fonts/84e52e18-9747-4f28-a3e3-9bf72b57fad7.woff2) format("woff2");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Circe W02 Bold";
+    src: url(../fonts/Circe-Bold.woff2) format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    -webkit-font-smoothing:subpixel-antialiased !important;
+}

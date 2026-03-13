@@ -1,6 +1,6 @@
 :global {
   #app {
-    background: #22252a;
+    background: #f0f0f0;
 
     .react-datepicker {
       border: 0;
@@ -298,7 +298,7 @@
   }
 
   .backgroundSkyChange {
-    background: linear-gradient(135deg, rgba(0, 52, 89, 1) 0%, rgba(0, 168, 232, 1) 90%) !important;
+    background: linear-gradient(135deg, rgba(29, 175, 236, 1) 0%, rgba(191, 236, 255, 1) 90%) !important;
   }
 
   .backgroundGreenEyes {
@@ -382,7 +382,11 @@
   }
 
   .backgroundRedCurtain {
-    background: radial-gradient(circle 371px at 2.9% 14.3%, rgba(255, 0, 102, 1) 0%, rgba(80, 5, 35, 1) 100.7%) !important;
+    background: radial-gradient(circle 371px at 2.9% 14.3%, rgba(229, 35, 34, 1) 0%, rgba(80, 5, 35, 1) 100.7%) !important;
+  }
+  
+  .backgroundWhite {
+    background: #fff;
   }
 
   /* Colors */

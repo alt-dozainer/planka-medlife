@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { Button, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { Draggable } from 'react-beautiful-dnd';
+import { upperFirst, camelCase } from 'lodash';
 import { usePopup } from '../../lib/popup';
 
 import { startStopwatch, stopStopwatch } from '../../utils/stopwatch';
@@ -17,6 +18,7 @@ import DueDate from '../DueDate';
 import Stopwatch from '../Stopwatch';
 
 import styles from './Card.module.scss';
+import globalStyles from '../../styles.module.scss';
 
 const Card = React.memo(
   ({
@@ -90,10 +92,23 @@ const Card = React.memo(
 
     const ActionsPopup = usePopup(ActionsStep);
 
+    const coverStyle = {
+      // backgroundImage: `linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55)), url(${coverUrl})`,
+      // backgroundRepeat: 'no-repeat',
+      // backgroundSize: '192px auto',
+      // backgroundPosition: '95% 0px',
+    };
+
     const contentNode = (
       <>
-        {coverUrl && <img src={coverUrl} alt="" className={styles.cover} />}
-        <div className={styles.details}>
+        {/* {coverUrl && <img src={coverUrl} alt="" className={styles.cover} />} */}
+        <div
+          className={classNames(
+            styles.details,
+            globalStyles[`background${upperFirst(camelCase(labels[0]?.color))}`],
+            styles.gradient,
+          )}
+        >
           {labels.length > 0 && (
             <span className={styles.labels}>
               {labels.map((label) => (
@@ -178,59 +193,62 @@ const Card = React.memo(
       <Draggable draggableId={`card:${id}`} index={index} isDragDisabled={!isPersisted || !canEdit}>
         {({ innerRef, draggableProps, dragHandleProps }) => (
           // eslint-disable-next-line react/jsx-props-no-spreading
-          <div {...draggableProps} {...dragHandleProps} ref={innerRef} className={styles.wrapper}>
-            <NameEdit ref={nameEdit} defaultValue={name} onUpdate={handleNameUpdate}>
-              <div className={styles.card}>
-                {isPersisted ? (
-                  <>
-                    <Link
-                      to={Paths.CARDS.replace(':id', id)}
-                      className={styles.content}
-                      onClick={handleClick}
-                    >
-                      {contentNode}
-                    </Link>
-                    {canEdit && (
-                      <ActionsPopup
-                        card={{
-                          dueDate,
-                          stopwatch,
-                          boardId,
-                          listId,
-                          projectId,
-                        }}
-                        projectsToLists={allProjectsToLists}
-                        boardMemberships={allBoardMemberships}
-                        currentUserIds={users.map((user) => user.id)}
-                        labels={allLabels}
-                        currentLabelIds={labels.map((label) => label.id)}
-                        onNameEdit={handleNameEdit}
-                        onUpdate={onUpdate}
-                        onMove={onMove}
-                        onTransfer={onTransfer}
-                        onDuplicate={onDuplicate}
-                        onDelete={onDelete}
-                        onUserAdd={onUserAdd}
-                        onUserRemove={onUserRemove}
-                        onBoardFetch={onBoardFetch}
-                        onLabelAdd={onLabelAdd}
-                        onLabelRemove={onLabelRemove}
-                        onLabelCreate={onLabelCreate}
-                        onLabelUpdate={onLabelUpdate}
-                        onLabelMove={onLabelMove}
-                        onLabelDelete={onLabelDelete}
+          <div {...draggableProps} {...dragHandleProps} ref={innerRef}>
+            {coverUrl && <img src={coverUrl} alt="" className={styles.cover} />}
+            <div className={styles.wrapper}>
+              <NameEdit ref={nameEdit} defaultValue={name} onUpdate={handleNameUpdate}>
+                <div className={styles.card} style={coverStyle}>
+                  {isPersisted ? (
+                    <div>
+                      <Link
+                        to={Paths.CARDS.replace(':id', id)}
+                        className={styles.content}
+                        onClick={handleClick}
                       >
-                        <Button className={classNames(styles.actionsButton, styles.target)}>
-                          <Icon fitted name="pencil" size="small" />
-                        </Button>
-                      </ActionsPopup>
-                    )}
-                  </>
-                ) : (
-                  <span className={styles.content}>{contentNode}</span>
-                )}
-              </div>
-            </NameEdit>
+                        {contentNode}
+                      </Link>
+                      {canEdit && (
+                        <ActionsPopup
+                          card={{
+                            dueDate,
+                            stopwatch,
+                            boardId,
+                            listId,
+                            projectId,
+                          }}
+                          projectsToLists={allProjectsToLists}
+                          boardMemberships={allBoardMemberships}
+                          currentUserIds={users.map((user) => user.id)}
+                          labels={allLabels}
+                          currentLabelIds={labels.map((label) => label.id)}
+                          onNameEdit={handleNameEdit}
+                          onUpdate={onUpdate}
+                          onMove={onMove}
+                          onTransfer={onTransfer}
+                          onDuplicate={onDuplicate}
+                          onDelete={onDelete}
+                          onUserAdd={onUserAdd}
+                          onUserRemove={onUserRemove}
+                          onBoardFetch={onBoardFetch}
+                          onLabelAdd={onLabelAdd}
+                          onLabelRemove={onLabelRemove}
+                          onLabelCreate={onLabelCreate}
+                          onLabelUpdate={onLabelUpdate}
+                          onLabelMove={onLabelMove}
+                          onLabelDelete={onLabelDelete}
+                        >
+                          <Button className={classNames(styles.actionsButton, styles.target)}>
+                            <Icon fitted name="pencil" size="small" />
+                          </Button>
+                        </ActionsPopup>
+                      )}
+                    </div>
+                  ) : (
+                    <span className={styles.content}>{contentNode}</span>
+                  )}
+                </div>
+              </NameEdit>
+            </div>
           </div>
         )}
       </Draggable>
